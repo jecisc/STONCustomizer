@@ -22,11 +22,6 @@ SCImporter class >> importFromFile: aFile state: aModel [
 ]
 
 { #category : #'instance creation' }
-SCImporter class >> importFromFileNamed: aString state: aModel [
-	^ self importFromFile: aString asFileReference state: aModel
-]
-
-{ #category : #'instance creation' }
 SCImporter >> fromString: aString [
 	^ (self on: aString readStream) next
 ]
