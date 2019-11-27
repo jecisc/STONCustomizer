@@ -16,7 +16,9 @@ SCImporterTest >> testFromString [
 	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 1) country ]).
 	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 2) country ]).
 	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 3) country ]).
-	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 4) country ])
+	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 4) country ]).
+	self assert: (importedPeoples detect: [ :each | each country name = 'Germany' ]) yearOfBirth equals: 1999 asYear.
+	self assert: (importedPeoples detect: [ :each | each country name = 'Belgium' ]) yearOfBirth equals: 1990 asYear
 ]
 
 { #category : #tests }
@@ -32,5 +34,7 @@ SCImporterTest >> testImportFromFileState [
 	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 1) country ]).
 	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 2) country ]).
 	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 3) country ]).
-	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 4) country ])
+	self assert: (countryHolder countries anySatisfy: [ :country | country == (importedPeoples at: 4) country ]).
+	self assert: (importedPeoples detect: [ :each | each country name = 'Germany' ]) yearOfBirth equals: 1999 asYear.
+	self assert: (importedPeoples detect: [ :each | each country name = 'Belgium' ]) yearOfBirth equals: 1990 asYear
 ]
