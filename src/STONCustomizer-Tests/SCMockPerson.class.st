@@ -16,7 +16,7 @@ SCMockPerson class >> country: aCountry yearOfBirth: aYear [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #customizations }
 SCMockPerson class >> countryCustomizer [
 	<stonCustomizationFor: #country>
 	^ STONCustomizer
@@ -24,7 +24,7 @@ SCMockPerson class >> countryCustomizer [
 		writeBlock: [ :person | person country name ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #customizations }
 SCMockPerson class >> yearOfBirthCustomizer [
 	<stonCustomizationFor: #yearOfBirth>
 	^ STONCustomizer
