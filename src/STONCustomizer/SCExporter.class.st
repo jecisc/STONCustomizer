@@ -1,3 +1,31 @@
+"
+Description
+--------------------
+
+I am an exporter processing STON customizations while exporting variables of a class.
+
+Examples
+--------------------
+
+	| countryHolder france belgium germany peoples |
+	countryHolder := SCMockCountryHolder new.
+
+	france := countryHolder countryNamed: 'France'.
+	belgium := countryHolder countryNamed: 'Belgium'.
+	germany := countryHolder countryNamed: 'Germany'.
+
+	peoples := {
+		(SCMockPerson country: france yearOfBirth: 1993 asYear).
+		(SCMockPerson country: france yearOfBirth: 1992 asYear).
+		(SCMockPerson country: belgium yearOfBirth: 1990 asYear).
+		(SCMockPerson country: germany yearOfBirth: 1999 asYear )
+	}.
+
+	SCExporter toString: peoples.
+	
+	SCExporter export: peoples inFile: (FileSystem memory / 'test.ston')
+
+"
 Class {
 	#name : #SCExporter,
 	#superclass : #STONWriter,
@@ -6,17 +34,17 @@ Class {
 
 { #category : #writing }
 SCExporter class >> export: anObject inFile: aFileReference [
-	^ self new export: anObject inFile: aFileReference
+	^ aFileReference writeStreamDo: [ :s | self export: anObject onStream: s ]
+]
+
+{ #category : #'as yet unclassified' }
+SCExporter class >> export: anObject onStream: aStream [
+	^ self new export: anObject onStream: aStream
 ]
 
 { #category : #writing }
 SCExporter class >> toString: anObject [
-	^ self new toString: anObject
-]
-
-{ #category : #writing }
-SCExporter >> export: anObject inFile: aFileReference [
-	aFileReference writeStreamDo: [ :s | self export: anObject onStream: s ]
+	^ String streamContents: [ :s | self export: anObject onStream: s ]
 ]
 
 { #category : #writing }
@@ -33,11 +61,6 @@ SCExporter >> getCustomizationsFor: anObject [
 		into: [ :dict :p | 
 			dict at: (p argumentAt: 1) put: (anObject class perform: p method selector).
 			dict ]
-]
-
-{ #category : #'instance creation' }
-SCExporter >> toString: anObject [
-	^ String streamContents: [ :stream | self export: anObject onStream: stream ]
 ]
 
 { #category : #writing }

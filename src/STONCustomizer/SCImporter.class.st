@@ -1,3 +1,38 @@
+"
+Description
+--------------------
+
+I am an importer processing STON customizations while importing variables of a class.
+
+The user can give me a state to use during the import.
+
+Examples
+--------------------
+
+	| countryHolder france belgium germany peoples export |
+	countryHolder := SCMockCountryHolder new.
+
+	france := countryHolder countryNamed: 'France'.
+	belgium := countryHolder countryNamed: 'Belgium'.
+	germany := countryHolder countryNamed: 'Germany'.
+
+	peoples := {
+		(SCMockPerson country: france yearOfBirth: 1993 asYear).
+		(SCMockPerson country: france yearOfBirth: 1992 asYear).
+		(SCMockPerson country: belgium yearOfBirth: 1990 asYear).
+		(SCMockPerson country: germany yearOfBirth: 1999 asYear )
+	}.
+
+	export := SCExporter toString: peoples.
+	
+	SCImporter fromString: export state: countryHolder	
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	state:		<anObject> 		The user can set this state to access to it during the import of objects.
+"
 Class {
 	#name : #SCImporter,
 	#superclass : #STONReader,
@@ -8,22 +43,22 @@ Class {
 }
 
 { #category : #'instance creation' }
-SCImporter class >> fromString: aString state: aModel [
+SCImporter class >> fromStream: aStream state: aModel [
 	^ self new
 		state: aModel;
-		fromString: aString
+		importFromStream: aStream
+]
+
+{ #category : #'instance creation' }
+SCImporter class >> fromString: aString state: aModel [
+	^ self fromStream: aString readStream state: aModel
 ]
 
 { #category : #'instance creation' }
 SCImporter class >> importFromFile: aFile state: aModel [
-	^ self new
-		state: aModel;
-		importFromFile: aFile
-]
+	aFile exists ifFalse: [ (FileDoesNotExistException fileName: aFile fileName) signal ].
 
-{ #category : #'instance creation' }
-SCImporter >> fromString: aString [
-	^ (self on: aString readStream) next
+	^ aFile readStreamDo: [ :s | self fromStream: s state: aModel ]
 ]
 
 { #category : #parsing }
@@ -36,10 +71,8 @@ SCImporter >> getCustomizationsFor: anObject [
 ]
 
 { #category : #parsing }
-SCImporter >> importFromFile: file [
-	^ file exists
-		ifTrue: [ (self on: file readStream) next ]
-		ifFalse: [ (FileDoesNotExistException fileName: file fileName) signal ]
+SCImporter >> importFromStream: aStream [
+	^ (self on: aStream) next
 ]
 
 { #category : #parsing }
