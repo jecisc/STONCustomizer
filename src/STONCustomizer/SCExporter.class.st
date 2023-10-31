@@ -27,34 +27,61 @@ Examples
 
 "
 Class {
-	#name : #SCExporter,
-	#superclass : #STONWriter,
-	#category : #STONCustomizer
+	#name : 'SCExporter',
+	#superclass : 'STONWriter',
+	#category : 'STONCustomizer',
+	#package : 'STONCustomizer'
 }
 
-{ #category : #writing }
+{ #category : 'writing' }
 SCExporter class >> export: anObject inFile: aFileReference [
-	^ aFileReference writeStreamDo: [ :s | self export: anObject onStream: s ]
+
+	^ aFileReference writeStreamDo: [ :s |
+		  self export: anObject onStream: s ]
 ]
 
-{ #category : #'as yet unclassified' }
-SCExporter class >> export: anObject onStream: aStream [
-	^ self new export: anObject onStream: aStream
+{ #category : 'writing' }
+SCExporter class >> export: anObject inFilePretty: aFileReference [
+
+	^ aFileReference writeStreamDo: [ :s |
+		  self export: anObject onStreamPretty: s ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
+SCExporter class >> export: anObject onStream: writeStream [
+
+	(self on: writeStream) nextPut: anObject
+]
+
+{ #category : 'writing' }
+SCExporter class >> export: anObject onStreamPretty: writeStream [
+
+	(self on: writeStream)
+		prettyPrint: true;
+		nextPut: anObject
+]
+
+{ #category : 'writing' }
 SCExporter class >> toString: anObject [
+
 	^ String streamContents: [ :s | self export: anObject onStream: s ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
+SCExporter class >> toStringPretty: anObject [
+
+	^ String streamContents: [ :s |
+		  self export: anObject onStreamPretty: s ]
+]
+
+{ #category : 'writing' }
 SCExporter >> export: anObject onStream: stream [
 	^ (self on: stream)
 		prettyPrint: true;
 		nextPut: anObject
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 SCExporter >> getCustomizationsFor: anObject [
 	^ (Pragma allNamed: #stonCustomizationFor: from: anObject class class to: Object)
 		inject: Dictionary new
@@ -63,28 +90,23 @@ SCExporter >> getCustomizationsFor: anObject [
 			dict ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 SCExporter >> writeObject: anObject [
 	anObject class stonAllInstVarNames
 		ifEmpty: [ self writeObject: anObject do: [ self encodeMap: #() ] ]
-		ifNotEmpty: [ :instanceVariableNames | 
+		ifNotEmpty: [ :instanceVariableNames |
 			| customizers |
 			customizers := self getCustomizationsFor: anObject.
-			self
-				writeObject: anObject
-				streamMap: [ :dictionary | 
-					instanceVariableNames
-						do: [ :each | 
-							(anObject instVarNamed: each)
-								ifNotNil: [ :value | 
-									dictionary
-										at: each asSymbol
-										put:
-											(customizers
-												at: each asSymbol
-												ifPresent: [ :customizer | customizer writeBlock cull: anObject cull: self ]
-												ifAbsent: [ value ]) ]
-								ifNil: [ 
-									anObject stonShouldWriteNilInstVars
-										ifTrue: [ dictionary at: each asSymbol put: nil ] ] ] ] ]
+			self writeObject: anObject streamMap: [ :dictionary |
+				instanceVariableNames do: [ :each |
+					(anObject instVarNamed: each)
+						ifNotNil: [ :value |
+							dictionary at: each asSymbol put: (customizers
+									 at: each asSymbol
+									 ifPresent: [ :customizer |
+									 customizer writeBlock cull: anObject cull: self ]
+									 ifAbsent: [ value ]) ]
+						ifNil: [
+							anObject stonShouldWriteNilInstVars ifTrue: [
+								dictionary at: each asSymbol put: nil ] ] ] ] ]
 ]

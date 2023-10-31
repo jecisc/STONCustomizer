@@ -1,18 +1,17 @@
 Class {
-	#name : #SCExporterTest,
-	#superclass : #SCExporterImportTest,
-	#category : #'STONCustomizer-Tests'
+	#name : 'SCExporterTest',
+	#superclass : 'SCExporterImportTest',
+	#category : 'STONCustomizer-Tests',
+	#package : 'STONCustomizer-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCExporterTest >> testExportInFile [
+
 	| file |
 	file := FileSystem memory / 'test.ston'.
-	SCExporter export: peoples inFile: file.
-	self
-		assert: file contents
-		equals:
-			'[
+	SCExporter export: peoples inFilePretty: file.
+	self assert: file contents equals: ('[
 	SCMockPerson {
 		#country : ''France'',
 		#yearOfBirth : 1993
@@ -29,15 +28,16 @@ SCExporterTest >> testExportInFile [
 		#country : ''Germany'',
 		#yearOfBirth : 1999
 	}
-]'
+]' copyReplaceAll: Character cr asString with: Character lf asString)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCExporterTest >> testExportOnStream [
+
 	self
-		assert: (String streamContents: [ :s | SCExporter export: peoples onStream: s ])
-		equals:
-			'[
+		assert: (String streamContents: [ :s |
+				 SCExporter export: peoples onStreamPretty: s ])
+		equals: ('[
 	SCMockPerson {
 		#country : ''France'',
 		#yearOfBirth : 1993
@@ -54,15 +54,13 @@ SCExporterTest >> testExportOnStream [
 		#country : ''Germany'',
 		#yearOfBirth : 1999
 	}
-]'
+]' copyReplaceAll: Character cr asString with: Character lf asString)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCExporterTest >> testToString [
-	self
-		assert: (SCExporter toString: peoples)
-		equals:
-			'[
+
+	self assert: (SCExporter toStringPretty: peoples) equals: ('[
 	SCMockPerson {
 		#country : ''France'',
 		#yearOfBirth : 1993
@@ -79,5 +77,5 @@ SCExporterTest >> testToString [
 		#country : ''Germany'',
 		#yearOfBirth : 1999
 	}
-]'
+]' copyReplaceAll: Character cr asString with: Character lf asString)
 ]

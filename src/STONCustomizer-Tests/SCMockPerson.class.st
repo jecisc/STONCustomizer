@@ -1,14 +1,15 @@
 Class {
-	#name : #SCMockPerson,
-	#superclass : #Object,
+	#name : 'SCMockPerson',
+	#superclass : 'Object',
 	#instVars : [
 		'country',
 		'yearOfBirth'
 	],
-	#category : #'STONCustomizer-Tests'
+	#category : 'STONCustomizer-Tests',
+	#package : 'STONCustomizer-Tests'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SCMockPerson class >> country: aCountry yearOfBirth: aYear [
 	^ self new
 		country: aCountry;
@@ -16,7 +17,7 @@ SCMockPerson class >> country: aCountry yearOfBirth: aYear [
 		yourself
 ]
 
-{ #category : #customizations }
+{ #category : 'customizations' }
 SCMockPerson class >> countryCustomizer [
 	<stonCustomizationFor: #country>
 	^ STONCustomizer
@@ -24,7 +25,7 @@ SCMockPerson class >> countryCustomizer [
 		writeBlock: [ :person | person country name ]
 ]
 
-{ #category : #customizations }
+{ #category : 'customizations' }
 SCMockPerson class >> yearOfBirthCustomizer [
 	<stonCustomizationFor: #yearOfBirth>
 	^ STONCustomizer
@@ -32,22 +33,22 @@ SCMockPerson class >> yearOfBirthCustomizer [
 		writeBlock: [ :person | person yearOfBirth start year ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCMockPerson >> country [
 	^ country
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCMockPerson >> country: anObject [
 	country := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCMockPerson >> yearOfBirth [
 	^ yearOfBirth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCMockPerson >> yearOfBirth: anObject [
 	yearOfBirth := anObject
 ]
