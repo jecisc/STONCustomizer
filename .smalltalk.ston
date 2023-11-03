@@ -4,7 +4,7 @@ SmalltalkCISpec {
       #baseline : 'STONCustomizer',
       #directory : 'src'
     }
-  ] 
+  ],
   #testing : {
     #coverage : {
       #packages : [ 'STONCustomizer' ]
