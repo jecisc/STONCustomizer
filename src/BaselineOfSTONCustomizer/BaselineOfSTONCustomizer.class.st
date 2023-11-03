@@ -2,12 +2,13 @@
 I am a baseline to define the structure and dependencies of the STONCustomizer project.
 "
 Class {
-	#name : #BaselineOfSTONCustomizer,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfSTONCustomizer
+	#name : 'BaselineOfSTONCustomizer',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfSTONCustomizer',
+	#package : 'BaselineOfSTONCustomizer'
 }
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfSTONCustomizer >> baseline: spec [
 	<baseline>
 	spec
@@ -24,7 +25,7 @@ BaselineOfSTONCustomizer >> baseline: spec [
 				group: 'Tests' with: #('STONCustomizer') ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BaselineOfSTONCustomizer >> projectClass [
 	^ MetacelloCypressBaselineProject
 ]
