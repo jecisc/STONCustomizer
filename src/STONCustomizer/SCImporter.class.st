@@ -78,19 +78,19 @@ SCImporter >> importFromStream: aStream [
 
 { #category : 'parsing' }
 SCImporter >> parseNamedInstVarsFor: anObject [
+
 	| customizers |
 	customizers := self getCustomizationsFor: anObject.
-	self
-		parseMapDo: [ :instVarName :value | 
-			customizers
-				at: instVarName asSymbol
-				ifPresent: [ :customizer | customizer readBlock cull: anObject cull: value cull: self ]
-				ifAbsent: [ 
-					[ anObject instVarNamed: instVarName put: value ]
-						on: Error
-						do: [ 
-							"The instance variable is no longer in the model. We do nothing in that case to not break compatibility with ston exported before."
-							 ] ] ]
+	self parseMapDo: [ :instVarName :value |
+		customizers
+			at: instVarName asSymbol
+			ifPresent: [ :customizer |
+				customizer readBlock cull: anObject cull: value cull: self ]
+			ifAbsent: [
+				[ anObject instVarNamed: instVarName put: value ]
+					on: Error
+					do: [ "The instance variable is no longer in the model. We do nothing in that case to not break compatibility with ston exported before."
+						 ] ] ]
 ]
 
 { #category : 'accessing' }
