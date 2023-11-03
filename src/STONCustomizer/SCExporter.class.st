@@ -90,6 +90,14 @@ SCExporter >> getCustomizationsFor: anObject [
 			dict ]
 ]
 
+{ #category : 'initialization' }
+SCExporter >> initialize [
+
+	super initialize.
+	"We want to be sure to use platform line ending in Pharo < 11. Afterward STON manages this well."
+	newLine := OSPlatform current lineEnding
+]
+
 { #category : 'writing' }
 SCExporter >> writeObject: anObject [
 	anObject class stonAllInstVarNames

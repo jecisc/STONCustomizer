@@ -28,7 +28,7 @@ SCExporterTest >> testExportInFile [
 		#country : ''Germany'',
 		#yearOfBirth : 1999
 	}
-]' copyReplaceAll: Character cr asString with: Character lf asString)
+]' copyReplaceAll: Character cr asString with: OSPlatform current lineEnding)
 ]
 
 { #category : 'tests' }
@@ -54,7 +54,7 @@ SCExporterTest >> testExportOnStream [
 		#country : ''Germany'',
 		#yearOfBirth : 1999
 	}
-]' copyReplaceAll: Character cr asString with: Character lf asString)
+]' copyReplaceAll: Character cr asString with: OSPlatform current lineEnding)
 ]
 
 { #category : 'tests' }
@@ -77,5 +77,5 @@ SCExporterTest >> testToString [
 		#country : ''Germany'',
 		#yearOfBirth : 1999
 	}
-]' copyReplaceAll: Character cr asString with: Character lf asString)
+]' copyReplaceAll: Character cr asString with: OSPlatform current lineEnding)
 ]
