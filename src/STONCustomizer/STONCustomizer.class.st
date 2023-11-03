@@ -25,16 +25,17 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #STONCustomizer,
-	#superclass : #Object,
+	#name : 'STONCustomizer',
+	#superclass : 'Object',
 	#instVars : [
 		'readBlock',
 		'writeBlock'
 	],
-	#category : #STONCustomizer
+	#category : 'STONCustomizer',
+	#package : 'STONCustomizer'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 STONCustomizer class >> readBlock: aBlock writeBlock: aBlock2 [
 	^ self new
 		readBlock: aBlock;
@@ -42,22 +43,22 @@ STONCustomizer class >> readBlock: aBlock writeBlock: aBlock2 [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STONCustomizer >> readBlock [
 	^ readBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STONCustomizer >> readBlock: anObject [
 	readBlock := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STONCustomizer >> writeBlock [
 	^ writeBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STONCustomizer >> writeBlock: anObject [
 	writeBlock := anObject
 ]

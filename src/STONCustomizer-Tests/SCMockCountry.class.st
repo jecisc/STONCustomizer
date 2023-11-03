@@ -1,25 +1,26 @@
 Class {
-	#name : #SCMockCountry,
-	#superclass : #Object,
+	#name : 'SCMockCountry',
+	#superclass : 'Object',
 	#instVars : [
 		'name'
 	],
-	#category : #'STONCustomizer-Tests'
+	#category : 'STONCustomizer-Tests',
+	#package : 'STONCustomizer-Tests'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SCMockCountry class >> named: aString [
 	^ self new
 		name: aString;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCMockCountry >> name [
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCMockCountry >> name: anObject [
 	name := anObject
 ]

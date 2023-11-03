@@ -1,1 +1,1 @@
-Package { #name : #STONCustomizer }
+Package { #name : 'STONCustomizer' }

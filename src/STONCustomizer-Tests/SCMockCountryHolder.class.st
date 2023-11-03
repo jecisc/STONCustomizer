@@ -1,18 +1,19 @@
 Class {
-	#name : #SCMockCountryHolder,
-	#superclass : #Object,
+	#name : 'SCMockCountryHolder',
+	#superclass : 'Object',
 	#instVars : [
 		'countries'
 	],
-	#category : #'STONCustomizer-Tests'
+	#category : 'STONCustomizer-Tests',
+	#package : 'STONCustomizer-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCMockCountryHolder >> countries [
 	^ countries
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 SCMockCountryHolder >> countryNamed: aString [
 	^ countries
 		detect: [ :e | e name = aString ]
@@ -22,7 +23,7 @@ SCMockCountryHolder >> countryNamed: aString [
 			country ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SCMockCountryHolder >> initialize [
 	super initialize.
 	countries := OrderedCollection new

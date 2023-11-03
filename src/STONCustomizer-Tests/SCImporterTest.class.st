@@ -1,10 +1,11 @@
 Class {
-	#name : #SCImporterTest,
-	#superclass : #SCExporterImportTest,
-	#category : #'STONCustomizer-Tests'
+	#name : 'SCImporterTest',
+	#superclass : 'SCExporterImportTest',
+	#category : 'STONCustomizer-Tests',
+	#package : 'STONCustomizer-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCImporterTest >> testFromStreamState [
 	| string importedPeoples |
 	string := SCExporter toString: peoples.
@@ -21,7 +22,7 @@ SCImporterTest >> testFromStreamState [
 	self assert: (importedPeoples detect: [ :each | each country name = 'Belgium' ]) yearOfBirth equals: 1990 asYear
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCImporterTest >> testFromStringState [
 	| string importedPeoples |
 	string := SCExporter toString: peoples.
@@ -38,7 +39,7 @@ SCImporterTest >> testFromStringState [
 	self assert: (importedPeoples detect: [ :each | each country name = 'Belgium' ]) yearOfBirth equals: 1990 asYear
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCImporterTest >> testImportFromFileState [
 	| file importedPeoples |
 	file := FileSystem memory / 'test.ston'.

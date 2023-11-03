@@ -1,10 +1,11 @@
 Class {
-	#name : #SCExporterTest,
-	#superclass : #SCExporterImportTest,
-	#category : #'STONCustomizer-Tests'
+	#name : 'SCExporterTest',
+	#superclass : 'SCExporterImportTest',
+	#category : 'STONCustomizer-Tests',
+	#package : 'STONCustomizer-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCExporterTest >> testExportInFile [
 	| file |
 	file := FileSystem memory / 'test.ston'.
@@ -32,7 +33,7 @@ SCExporterTest >> testExportInFile [
 ]'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCExporterTest >> testExportOnStream [
 	self
 		assert: (String streamContents: [ :s | SCExporter export: peoples onStream: s ])
@@ -57,7 +58,7 @@ SCExporterTest >> testExportOnStream [
 ]'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SCExporterTest >> testToString [
 	self
 		assert: (SCExporter toString: peoples)

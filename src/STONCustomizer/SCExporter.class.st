@@ -27,34 +27,35 @@ Examples
 
 "
 Class {
-	#name : #SCExporter,
-	#superclass : #STONWriter,
-	#category : #STONCustomizer
+	#name : 'SCExporter',
+	#superclass : 'STONWriter',
+	#category : 'STONCustomizer',
+	#package : 'STONCustomizer'
 }
 
-{ #category : #writing }
+{ #category : 'writing' }
 SCExporter class >> export: anObject inFile: aFileReference [
 	^ aFileReference writeStreamDo: [ :s | self export: anObject onStream: s ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 SCExporter class >> export: anObject onStream: aStream [
 	^ self new export: anObject onStream: aStream
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 SCExporter class >> toString: anObject [
 	^ String streamContents: [ :s | self export: anObject onStream: s ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 SCExporter >> export: anObject onStream: stream [
 	^ (self on: stream)
 		prettyPrint: true;
 		nextPut: anObject
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 SCExporter >> getCustomizationsFor: anObject [
 	^ (Pragma allNamed: #stonCustomizationFor: from: anObject class class to: Object)
 		inject: Dictionary new
@@ -63,7 +64,7 @@ SCExporter >> getCustomizationsFor: anObject [
 			dict ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 SCExporter >> writeObject: anObject [
 	anObject class stonAllInstVarNames
 		ifEmpty: [ self writeObject: anObject do: [ self encodeMap: #() ] ]

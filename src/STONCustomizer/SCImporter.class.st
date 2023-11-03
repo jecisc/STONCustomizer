@@ -34,34 +34,35 @@ Internal Representation and Key Implementation Points.
 	state:		<anObject> 		The user can set this state to access to it during the import of objects.
 "
 Class {
-	#name : #SCImporter,
-	#superclass : #STONReader,
+	#name : 'SCImporter',
+	#superclass : 'STONReader',
 	#instVars : [
 		'state'
 	],
-	#category : #STONCustomizer
+	#category : 'STONCustomizer',
+	#package : 'STONCustomizer'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SCImporter class >> fromStream: aStream state: aModel [
 	^ self new
 		state: aModel;
 		importFromStream: aStream
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SCImporter class >> fromString: aString state: aModel [
 	^ self fromStream: aString readStream state: aModel
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SCImporter class >> importFromFile: aFile state: aModel [
 	aFile exists ifFalse: [ (FileDoesNotExistException fileName: aFile fileName) signal ].
 
 	^ aFile readStreamDo: [ :s | self fromStream: s state: aModel ]
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SCImporter >> getCustomizationsFor: anObject [
 	^ (Pragma allNamed: #stonCustomizationFor: from: anObject class class to: Object)
 		inject: Dictionary new
@@ -70,12 +71,12 @@ SCImporter >> getCustomizationsFor: anObject [
 			dict ]
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SCImporter >> importFromStream: aStream [
 	^ (self on: aStream) next
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 SCImporter >> parseNamedInstVarsFor: anObject [
 	| customizers |
 	customizers := self getCustomizationsFor: anObject.
@@ -92,12 +93,12 @@ SCImporter >> parseNamedInstVarsFor: anObject [
 							 ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCImporter >> state [
 	^ state
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SCImporter >> state: anObject [
 	state := anObject
 ]

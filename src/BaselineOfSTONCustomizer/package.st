@@ -1,1 +1,1 @@
-Package { #name : #BaselineOfSTONCustomizer }
+Package { #name : 'BaselineOfSTONCustomizer' }

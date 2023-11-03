@@ -1,19 +1,20 @@
 Class {
-	#name : #SCExporterImportTest,
-	#superclass : #TestCase,
+	#name : 'SCExporterImportTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'countryHolder',
 		'peoples'
 	],
-	#category : #'STONCustomizer-Tests'
+	#category : 'STONCustomizer-Tests',
+	#package : 'STONCustomizer-Tests'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 SCExporterImportTest class >> isAbstract [
 	^ self = SCExporterImportTest
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 SCExporterImportTest >> setUp [
 	| france belgium germany |
 	super setUp.
